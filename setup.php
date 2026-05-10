@@ -7,9 +7,10 @@ $conn = null;
 $error = '';
 
 $connection_attempts = [
-    ['host' => '127.0.0.1', 'port' => 3306, 'user' => 'root', 'pass' => '', 'name' => 'via 127.0.0.1:3306'],
-    ['host' => 'localhost', 'port' => 3306, 'user' => 'root', 'pass' => '', 'name' => 'via localhost:3306'],
-    ['host' => 'localhost', 'port' => null, 'user' => 'root', 'pass' => '', 'name' => 'via localhost'],
+    ['host' => '127.0.0.1', 'port' => 3306, 'socket' => null, 'user' => 'root', 'pass' => '', 'name' => 'via 127.0.0.1:3306'],
+    ['host' => 'localhost', 'port' => 3306, 'socket' => null, 'user' => 'root', 'pass' => '', 'name' => 'via localhost:3306'],
+    ['host' => 'localhost', 'port' => null, 'socket' => 'D:/For Acads/apps/App/PhotoshopCS6/mysql/mysql.sock', 'user' => 'root', 'pass' => '', 'name' => 'via MySQL socket'],
+    ['host' => 'localhost', 'port' => null, 'socket' => null, 'user' => 'root', 'pass' => '', 'name' => 'via localhost'],
 ];
 
 // Also try to get connection info from existing databases
@@ -18,7 +19,7 @@ if (class_exists('mysqli')) {
         if (function_exists('mysqli_report')) {
             mysqli_report(MYSQLI_REPORT_OFF);
         }
-        $conn = @new mysqli($attempt['host'], $attempt['user'], $attempt['pass'], '', $attempt['port']);
+        $conn = @new mysqli($attempt['host'], $attempt['user'], $attempt['pass'], '', $attempt['port'], $attempt['socket']);
         if (!$conn->connect_error) {
             $connected = true;
             break;

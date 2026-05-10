@@ -5,9 +5,10 @@ define('DB_PASS', '');
 define('DB_NAME', 'lms_db');
 
 $connectionAttempts = [
-    ['host' => '127.0.0.1', 'port' => 3306],
-    ['host' => 'localhost', 'port' => 3306],
-    ['host' => 'localhost', 'port' => null],
+    ['host' => '127.0.0.1', 'port' => 3306, 'socket' => null],
+    ['host' => 'localhost', 'port' => 3306, 'socket' => null],
+    ['host' => 'localhost', 'port' => null, 'socket' => 'D:/For Acads/apps/App/PhotoshopCS6/mysql/mysql.sock'],
+    ['host' => 'localhost', 'port' => null, 'socket' => null],
 ];
 
 $conn = null;
@@ -22,7 +23,8 @@ foreach ($connectionAttempts as $attempt) {
         DB_USER,
         DB_PASS,
         DB_NAME,
-        $attempt['port'] ?? null
+        $attempt['port'] ?? null,
+        $attempt['socket'] ?? null
     );
 
     if (!$conn->connect_error) {
