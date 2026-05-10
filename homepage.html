@@ -43,10 +43,6 @@
           <input id="heroSearch" placeholder="Search books, authors, categories">
           <button onclick="window.location.href='books.html?q='+document.getElementById('heroSearch').value">Search</button>
         </div>
-        <div class="hero-actions">
-          <a href="books.html">Browse Catalog</a>
-          <a href="log.html">Student Login</a>
-        </div>
       </div>
     </section>
 
@@ -77,13 +73,15 @@
   <aside id="sideMenu" class="side-menu info-panel">
     <button id="closeBtn" class="menu-btn active" aria-label="Close information panel"><span></span><span></span><span></span></button>
     <div class="panel-title">
-      <span>Institution Profile</span>
-      <h2>PTCHub</h2>
+      <span>PTCHub Information</span>
+      <h2>Library Profile</h2>
+      <p>Focused on access, clarity, and student-centered learning.</p>
     </div>
 
     <div class="info-accordion">
       <section class="info-item active">
         <button class="info-trigger" type="button" aria-expanded="true">
+          <span class="info-kicker">01</span>
           <span>About PTCHub</span>
           <span class="info-plus"></span>
         </button>
@@ -94,6 +92,7 @@
 
       <section class="info-item">
         <button class="info-trigger" type="button" aria-expanded="false">
+          <span class="info-kicker">02</span>
           <span>Vision</span>
           <span class="info-plus"></span>
         </button>
@@ -104,6 +103,7 @@
 
       <section class="info-item">
         <button class="info-trigger" type="button" aria-expanded="false">
+          <span class="info-kicker">03</span>
           <span>Mission</span>
           <span class="info-plus"></span>
         </button>
