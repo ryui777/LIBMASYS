@@ -8,8 +8,7 @@
   <link rel="stylesheet" href="style/lms_style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+<body class="home-page">
 
 <div class="container page-fade">
   <header>
@@ -37,29 +36,33 @@
   <main>
     <section class="hero">
       <div class="hero-content">
-        <span class="badge">Welcome to PTC Hub</span>
-        <h1>Your Digital Library for Learning, Reading & Discovery</h1>
-        <p class="lead">Explore books and resources curated for PTC students. Learn at your own pace, discover new ideas, and enjoy a modern library experience anytime, anywhere.</p>
+        <span class="badge">PTC Digital Library</span>
+        <h1>Find, borrow, and manage books in one organized library hub.</h1>
+        <p class="lead">PTCHub gives students a simple way to search the catalog, borrow learning materials, track returns, and save books for later.</p>
         <div class="search">
           <input id="heroSearch" placeholder="Search books, authors, categories">
           <button onclick="window.location.href='books.html?q='+document.getElementById('heroSearch').value">Search</button>
+        </div>
+        <div class="hero-actions">
+          <a href="books.html">Browse Catalog</a>
+          <a href="log.html">Student Login</a>
         </div>
       </div>
     </section>
 
     <section class="features-grid">
       <div class="feature-card" style="animation-delay:0.1s">
-        <div class="feature-icon">Books</div>
+        <div class="feature-icon">Catalog</div>
         <h3>Browse Books</h3>
         <p>Explore the active catalog of academic books, references, and resources organized by category.</p>
       </div>
       <div class="feature-card" style="animation-delay:0.2s">
-        <div class="feature-icon">Track</div>
+        <div class="feature-icon">Loans</div>
         <h3>Borrow &amp; Return</h3>
         <p>Students can borrow books, track due dates, and return borrowed items from My Library.</p>
       </div>
       <div class="feature-card" style="animation-delay:0.3s">
-        <div class="feature-icon">Save</div>
+        <div class="feature-icon">Saved</div>
         <h3>Favorites</h3>
         <p>Favorite books are highlighted in the catalog and collected in the student dashboard.</p>
       </div>
@@ -73,6 +76,10 @@
 
   <aside id="sideMenu" class="side-menu info-panel">
     <button id="closeBtn" class="menu-btn active" aria-label="Close information panel"><span></span><span></span><span></span></button>
+    <div class="panel-title">
+      <span>Institution Profile</span>
+      <h2>PTCHub</h2>
+    </div>
 
     <section>
       <h3>About PTCHub</h3>
