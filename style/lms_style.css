@@ -41,6 +41,10 @@ nav a.active-link{color:var(--yellow);}
 .side-menu a{text-decoration:none;font-weight:600;color:rgba(255,255,255,0.85);padding:13px 16px;border-radius:12px;transition:0.2s;font-size:15px;}
 .side-menu a:hover{background:rgba(252,209,22,0.12);color:var(--yellow);transform:translateX(4px);}
 .side-menu .menu-btn{align-self:flex-end;margin-bottom:12px;}
+.info-panel section{padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);}
+.info-panel section:first-of-type{border-top:0;}
+.info-panel h3{color:var(--yellow);font-size:17px;margin-bottom:8px;}
+.info-panel p{color:rgba(255,255,255,0.75);font-size:14px;line-height:1.6;}
 .hero{min-height:72vh;width:100%;background:url("images/homepage-bg.jpg") center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;border-radius:var(--radius);overflow:hidden;margin-bottom:32px;}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(10,31,13,0.8) 100%);z-index:0;}
 .hero-content{position:relative;z-index:2;text-align:center;max-width:700px;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;}
