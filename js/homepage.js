@@ -61,6 +61,10 @@ document.querySelectorAll('.info-trigger').forEach(trigger => {
 
 // SESSION CHECK
 window.addEventListener('DOMContentLoaded', async () => {
+  if (sideMenu) sideMenu.classList.remove('active');
+  if (overlay) overlay.classList.remove('active');
+  if (menuBtn) menuBtn.classList.remove('active');
+
   try {
     const res  = await fetch('api/session.php').then(r => r.json());
     const user = res.loggedIn ? res.user : null;

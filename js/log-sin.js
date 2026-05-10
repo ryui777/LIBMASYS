@@ -1,7 +1,10 @@
 ﻿// ── UTILITIES ──────────────────────────────────────
 const API = (path, opts = {}) =>
-  fetch(path, { headers: { 'Content-Type': 'application/json' }, ...opts })
-    .then(r => r.json());
+  fetch(path, {
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    ...opts
+  }).then(r => r.json());
 
 // ── PASSWORD TOGGLE ─────────────────────────────────
 document.querySelectorAll('.toggle-pass').forEach(icon => {
@@ -22,7 +25,7 @@ document.querySelectorAll('.role-option input').forEach(input => {
 });
 
 // ── SESSION → REDIRECT IF ALREADY LOGGED IN ─────────
-fetch('api/session.php').then(r => r.json()).then(s => {
+fetch('api/session.php', { credentials: 'include' }).then(r => r.json()).then(s => {
   if (s.loggedIn) window.location.href = 'homepage.html';
 });
 
