@@ -81,38 +81,4 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll('a[href="admin-pg.html"]').forEach(link => link.style.display = 'none');
     document.querySelectorAll('a[href="admin-bor.html"]').forEach(link => link.style.display = 'none');
   }
-
-  loadFeaturedBooks();
 });
-
-async function loadFeaturedBooks() {
-  const grid = document.getElementById('featuredBooks');
-  if (!grid) return;
-
-  grid.innerHTML = '<p style="color:var(--muted);padding:20px;">Loading featured books...</p>';
-
-  try {
-    const books = await fetch('api/books.php').then(r => r.json());
-    const featured = Array.isArray(books) ? books.slice(0, 4) : [];
-
-    if (!featured.length) {
-      grid.innerHTML = '<div class="empty-state"><p>No featured books yet.</p></div>';
-      return;
-    }
-
-    grid.innerHTML = '';
-    featured.forEach(book => {
-      const card = document.createElement('a');
-      card.className = 'book-card featured-book';
-      card.href = 'books.html';
-      card.innerHTML = `
-        <img src="${book.img || 'images/default.jpg'}" alt="${book.title}" loading="lazy">
-        <h3>${book.title}</h3>
-        <p>${book.author}</p>
-        <span>${book.category || 'Library Book'}</span>`;
-      grid.appendChild(card);
-    });
-  } catch {
-    grid.innerHTML = '<div class="empty-state"><p>Featured books are unavailable.</p></div>';
-  }
-}

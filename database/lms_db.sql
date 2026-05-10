@@ -41,11 +41,16 @@ CREATE TABLE IF NOT EXISTS favorites (
 );
 
 INSERT IGNORE INTO users (name, email, password, role) VALUES
-('Admin', 'admin@ptchub.com', '$2y$12$7um6t./MQ/IeCkWxemOveuS.u0DaG47P8.CI/Fbtpl8bti3xsc4nq', 'admin');
+('Admin', 'admin@ptchub.com', '$2y$12$7um6t./MQ/IeCkWxemOveuS.u0DaG47P8.CI/Fbtpl8bti3xsc4nq', 'admin'),
+('admin123', 'admin123@ptchub.local', '$2y$12$7um6t./MQ/IeCkWxemOveuS.u0DaG47P8.CI/Fbtpl8bti3xsc4nq', 'admin');
 
 UPDATE users
 SET password = '$2y$12$7um6t./MQ/IeCkWxemOveuS.u0DaG47P8.CI/Fbtpl8bti3xsc4nq', role = 'admin'
 WHERE email = 'admin@ptchub.com';
+
+UPDATE users
+SET name = 'admin123', password = '$2y$12$7um6t./MQ/IeCkWxemOveuS.u0DaG47P8.CI/Fbtpl8bti3xsc4nq', role = 'admin'
+WHERE email = 'admin123@ptchub.local';
 
 INSERT INTO books (title, author, category, img)
 SELECT 'Beginners HTML', 'Wendy Willard', 'Basic HTML', 'images/books/book1.jpg'

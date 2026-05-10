@@ -4,15 +4,15 @@ require_once 'config.php';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') jsonResponse(['error' => 'Method not allowed'], 405);
 
 $data     = json_decode(file_get_contents('php://input'), true);
-$email    = trim($data['email'] ?? '');
+$identifier = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
 $role     = $data['role'] ?? '';
 
-if (!$email || !$password) jsonResponse(['error' => 'Email and password required'], 400);
+if (!$identifier || !$password) jsonResponse(['error' => 'Username/email and password required'], 400);
 if ($role && !in_array($role, ['user', 'admin'], true)) jsonResponse(['error' => 'Invalid login role'], 400);
 
-$stmt = $conn->prepare("SELECT id, name, email, password, role FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
+$stmt = $conn->prepare("SELECT id, name, email, password, role FROM users WHERE email = ? OR name = ? LIMIT 1");
+$stmt->bind_param("ss", $identifier, $identifier);
 $stmt->execute();
 $result = $stmt->get_result();
 
