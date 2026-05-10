@@ -1,5 +1,5 @@
 async function requireAdmin() {
-  const session = await fetch('api/session.php').then(r => r.json());
+  const session = await API('api/session.php');
   if (!session.loggedIn || session.user.role !== 'admin') {
     window.location.href = 'homepage.html';
     return false;
@@ -15,7 +15,7 @@ async function loadBorrowed() {
 
   let borrowed = [];
   try {
-    borrowed = await fetch('api/borrow.php').then(r => r.json());
+    borrowed = await API('api/borrow.php');
   } catch {
     container.innerHTML = '<div class="empty-state"><p>Unable to load borrowed books. Check Apache and MySQL.</p></div>';
     return;
@@ -47,11 +47,10 @@ window.markReturned = async function(id, btn) {
   btn.textContent = 'Processing...';
 
   try {
-    const res = await fetch('api/return.php', {
+    const res = await API('api/return.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       showToast('Marked as returned.', 'success');

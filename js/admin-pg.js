@@ -2,7 +2,7 @@ let books = [];
 let editingId = null;
 
 async function requireAdmin() {
-  const session = await fetch('api/session.php').then(r => r.json());
+  const session = await API('api/session.php');
   if (!session.loggedIn || session.user.role !== 'admin') {
     window.location.href = 'homepage.html';
     return false;
@@ -12,7 +12,7 @@ async function requireAdmin() {
 
 async function loadBooks() {
   try {
-    books = await fetch('api/books.php').then(r => r.json());
+    books = await API('api/books.php');
   } catch {
     books = [];
     showToast('Unable to load books. Check Apache and MySQL.', 'error');
@@ -66,17 +66,15 @@ window.addOrUpdateBook = async function() {
   try {
     let res;
     if (editingId) {
-      res = await fetch('api/books.php', {
+      res = await API('api/books.php', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: editingId, title, author, category, img })
-      }).then(r => r.json());
+      });
     } else {
-      res = await fetch('api/books.php', {
+      res = await API('api/books.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, author, category, img })
-      }).then(r => r.json());
+      });
     }
 
     if (res.success || res.id) {
@@ -112,11 +110,10 @@ window.deleteBook = async function(id) {
   if (!confirm('Delete this book?')) return;
 
   try {
-    const res = await fetch('api/books.php', {
+    const res = await API('api/books.php', {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       showToast('Book deleted.', 'info');

@@ -13,7 +13,7 @@ async function loadUserBorrowed() {
 
   let data = [];
   try {
-    data = await fetch('api/borrow.php').then(r => r.json());
+    data = await API('api/borrow.php');
   } catch {
     list.innerHTML = '<div class="empty-state"><p>Unable to load borrowed books. Check Apache and MySQL.</p></div>';
     return;
@@ -40,11 +40,10 @@ async function loadUserBorrowed() {
 
 window.markReturned = async function(id) {
   try {
-    const res = await fetch('api/return.php', {
+    const res = await API('api/return.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       showToast('Returned successfully.', 'success');
@@ -65,7 +64,7 @@ async function loadUserFavorites() {
 
   let data = [];
   try {
-    data = await fetch('api/favorites.php').then(r => r.json());
+    data = await API('api/favorites.php');
   } catch {
     favList.innerHTML = '<div class="empty-state"><p>Unable to load favorites. Check Apache and MySQL.</p></div>';
     return;
@@ -91,11 +90,10 @@ async function loadUserFavorites() {
 
 window.removeFavorite = async function(id) {
   try {
-    const res = await fetch('api/favorites.php', {
+    const res = await API('api/favorites.php', {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       showToast('Removed from favorites.', 'info');
@@ -110,7 +108,7 @@ window.removeFavorite = async function(id) {
 
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    const session = await fetch('api/session.php').then(r => r.json());
+    const session = await API('api/session.php');
     if (!session.loggedIn) {
       window.location.href = 'log.html';
       return;

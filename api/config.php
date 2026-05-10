@@ -18,7 +18,7 @@ define('DB_NAME', getenv('DB_NAME') ?: $defaultDbName);
 // Allowed origins for browser requests (comma-separated env var)
 // Example:
 // ALLOWED_ORIGINS=https://your-site.com,https://www.your-site.com,http://localhost
-$allowedOriginsEnv = getenv('ALLOWED_ORIGINS') ?: '';
+$allowedOriginsEnv = getenv('ALLOWED_ORIGINS') ?: 'https://ryui777.github.io,http://localhost';
 $allowedOrigins = array_filter(array_map('trim', explode(',', $allowedOriginsEnv)));
 
 // Local fallback for development if ALLOWED_ORIGINS is not set.
@@ -26,6 +26,10 @@ if (empty($allowedOrigins)) {
     $allowedOrigins = [
         'http://localhost',
         'http://127.0.0.1',
+        'http://localhost:80',
+        'http://127.0.0.1:80',
+        'http://localhost:8080',
+        'http://127.0.0.1:8080',
     ];
 }
 

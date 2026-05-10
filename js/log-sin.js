@@ -1,10 +1,5 @@
-﻿// ── UTILITIES ──────────────────────────────────────
-const API = (path, opts = {}) =>
-  fetch(path, {
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    ...opts
-  }).then(r => r.json());
+// ── UTILITIES ──────────────────────────────────────
+// API wrapper is now globally defined in toast.js
 
 // ── PASSWORD TOGGLE ─────────────────────────────────
 document.querySelectorAll('.toggle-pass').forEach(icon => {
@@ -25,7 +20,7 @@ document.querySelectorAll('.role-option input').forEach(input => {
 });
 
 // ── SESSION → REDIRECT IF ALREADY LOGGED IN ─────────
-fetch('api/session.php', { credentials: 'include' }).then(r => r.json()).then(s => {
+API('api/session.php').then(s => {
   if (s.loggedIn) window.location.href = 'homepage.html';
 });
 
@@ -55,8 +50,8 @@ if (signUpForm) {
         showToast(res.error || 'Registration failed.', 'error');
         btn.disabled = false; btn.textContent = 'Sign Up';
       }
-    } catch {
-      showToast('Server error. Make sure XAMPP is running.', 'error');
+    } catch (err) {
+      showToast(err.message || 'Cannot reach API. Check Apache/XAMPP and URL.', 'error');
       btn.disabled = false; btn.textContent = 'Sign Up';
     }
   });
@@ -89,8 +84,8 @@ if (loginForm) {
         showToast(res.error || 'Invalid credentials.', 'error');
         btn.disabled = false; btn.textContent = 'Log In';
       }
-    } catch {
-      showToast('Server error. Make sure XAMPP is running.', 'error');
+    } catch (err) {
+      showToast(err.message || 'Cannot reach API. Check Apache/XAMPP and URL.', 'error');
       btn.disabled = false; btn.textContent = 'Log In';
     }
   });

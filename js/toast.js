@@ -1,9 +1,22 @@
-
 (function() {
   const container = document.createElement('div');
   container.id = 'toast-container';
   container.style.cssText = 'position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;';
   document.body.appendChild(container);
+
+  window.API = async function(path, opts = {}) {
+    const API_BASE = 'https://libmasys.wuaze.com/';
+    const response = await fetch(API_BASE + path, {
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      ...opts
+    });
+    const raw = await response.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch { throw new Error('Invalid JSON'); }
+    if (!response.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  };
 
   window.showToast = function(message, type = 'info', duration = 3500) {
     const colors = { success:'#2e7d32', error:'#CE1126', info:'#0038A8', warning:'#fcd116' };

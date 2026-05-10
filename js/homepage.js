@@ -1,4 +1,4 @@
-﻿// HAMBURGER MENU
+// HAMBURGER MENU
 const menuBtn  = document.getElementById('menuBtn');
 const sideMenu = document.getElementById('sideMenu');
 const overlay  = document.querySelector('.menu-overlay');
@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   if (menuBtn) menuBtn.classList.remove('active');
 
   try {
-    const res  = await fetch('api/session.php').then(r => r.json());
+    const res  = await API('api/session.php');
     const user = res.loggedIn ? res.user : null;
 
     const signUpLink  = document.querySelector('nav a.sig');
@@ -102,7 +102,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     if (logoutBtn) {
       logoutBtn.addEventListener('click', async () => {
-        await fetch('api/logout.php', { method: 'POST' });
+        await API('api/logout.php', { method: 'POST' });
         window.location.reload();
       });
     }

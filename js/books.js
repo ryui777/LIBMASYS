@@ -5,7 +5,7 @@ let favoriteBookIds = new Set();
 
 async function loadSession() {
   try {
-    const session = await fetch('api/session.php').then(r => r.json());
+    const session = await API('api/session.php');
     currentUser = session.loggedIn ? session.user : null;
   } catch {
     currentUser = null;
@@ -19,8 +19,8 @@ async function loadStudentState() {
   if (!currentUser || currentUser.role !== 'user') return;
 
   const [borrowed, favorites] = await Promise.all([
-    fetch('api/borrow.php').then(r => r.json()).catch(() => []),
-    fetch('api/favorites.php').then(r => r.json()).catch(() => [])
+    API('api/borrow.php').catch(() => []),
+    API('api/favorites.php').catch(() => [])
   ]);
 
   borrowed
@@ -39,7 +39,7 @@ async function loadBooks(search = '', category = '') {
   try {
     await loadSession();
     const url = `api/books.php?search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}`;
-    allBooks = await fetch(url).then(r => r.json());
+    allBooks = await API(url);
     await loadStudentState();
 
     if (!Array.isArray(allBooks) || allBooks.length === 0) {
@@ -108,11 +108,10 @@ async function borrowBook(book) {
   }
 
   try {
-    const res = await fetch('api/borrow.php', {
+    const res = await API('api/borrow.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ book_id: book.id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       borrowedBookIds.add(Number(book.id));
@@ -133,11 +132,10 @@ async function addFavorite(book) {
   }
 
   try {
-    const res = await fetch('api/favorites.php', {
+    const res = await API('api/favorites.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ book_id: book.id })
-    }).then(r => r.json());
+    });
 
     if (res.success) {
       favoriteBookIds.add(Number(book.id));
