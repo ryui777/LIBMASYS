@@ -55,4 +55,4 @@ Image: images/books/book9.jpg
 Title: Information Management
 Author: Ramesh Singh
 Category: Information Science/Technology
-Image: images/books/book10.jpg
+Image: images/books/book10.png

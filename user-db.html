@@ -10,10 +10,9 @@
 
 <div class="container">
 
-  <!-- HEADER -->
   <header>
     <div>
-      <h2>📚 My Library</h2>
+      <h2>My Library</h2>
       <p style="margin:0; color:#666;">Borrowed books and favorites</p>
     </div>
     <nav>
@@ -22,25 +21,20 @@
   </header>
 
   <main class="user-container">
-
-    <!-- TABS -->
     <div class="tabs">
-      <button class="tab" onclick="showTab('borrowed')">📚 Borrowed Books</button>
-      <button class="tab" onclick="showTab('favorites')">❤️ Favorites</button>
+      <button class="tab" onclick="showTab('borrowed')">Borrowed Books</button>
+      <button class="tab" onclick="showTab('favorites')">Favorites</button>
     </div>
 
-    <!-- BORROWED -->
     <section id="borrowed" class="tab-content">
       <h3>My Borrowed Books</h3>
       <div id="borrowedList" class="list-grid"></div>
     </section>
 
-    <!-- FAVORITES -->
     <section id="favorites" class="tab-content">
       <h3>My Favorites</h3>
       <div id="favList" class="book-grid"></div>
     </section>
-
   </main>
 
 </div>

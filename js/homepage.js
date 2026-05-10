@@ -73,13 +73,9 @@ window.addEventListener('DOMContentLoaded', async () => {
       });
     }
   } catch {
-    // XAMPP not running — degrade gracefully using localStorage
-    const user = JSON.parse(localStorage.getItem('loggedInUser'));
     const adminLink    = document.querySelector('a[href="admin-pg.html"]');
     const adminBorLink = document.querySelector('a[href="admin-bor.html"]');
-    if (!user || user.role !== 'admin') {
-      if (adminLink)    adminLink.style.display    = 'none';
-      if (adminBorLink) adminBorLink.style.display = 'none';
-    }
+    if (adminLink)    adminLink.style.display    = 'none';
+    if (adminBorLink) adminBorLink.style.display = 'none';
   }
 });

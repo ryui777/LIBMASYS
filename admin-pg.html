@@ -8,37 +8,22 @@
 
 <body class="homepage">
 
-<script>
-  // PROTECT ADMIN PAGE - REDIRECT IF NOT ADMIN
-  window.addEventListener('DOMContentLoaded', () => {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (!loggedInUser || loggedInUser.role !== 'admin') {
-      window.location.href = 'homepage.html';
-    }
-  });
-</script>
-
 <div class="container">
 
-  <!-- HEADER -->
   <header>
     <div>
-      <h2>🛠️ Admin Dashboard</h2>
+      <h2>Admin Dashboard</h2>
       <p style="margin:0; color:#666;">Manage your library books</p>
     </div>
-	<nav>
+    <nav>
       <a href="homepage.html" class="nlink">Home</a>
     </nav>
   </header>
 
   <main>
-
-    <!-- DASHBOARD GRID -->
     <div class="admin-grid">
-
-      <!-- ADD BOOK CARD -->
       <section class="admin-card">
-        <h3>➕ Add New / ✏️ Edit Book</h3>
+        <h3>Add / Edit Book</h3>
 
         <div class="form-group">
           <label>Title</label>
@@ -63,14 +48,11 @@
         <button class="add-btn" onclick="addOrUpdateBook()">Add Book</button>
       </section>
 
-      <!-- BOOK LIST CARD -->
       <section class="admin-card">
-        <h3>📚 Book Collection</h3>
+        <h3>Book Collection</h3>
         <div id="adminBookList" class="book-grid"></div>
       </section>
-
     </div>
-
   </main>
 
 </div>

@@ -8,31 +8,18 @@
 
 <body>
 
-<script>
-  // PROTECT ADMIN PAGE - REDIRECT IF NOT ADMIN
-  window.addEventListener('DOMContentLoaded', () => {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (!loggedInUser || loggedInUser.role !== 'admin') {
-      window.location.href = 'homepage.html';
-    }
-  });
-</script>
-
 <div class="container">
 
   <header>
-    <h2>📊 Borrowed Books Management</h2>
+    <h2>Borrowed Books Management</h2>
     <nav>
       <a href="admin-pg.html" class="nlink">Admin Home</a>
     </nav>
   </header>
 
   <main>
-
     <h3>All Borrowed Books</h3>
-
     <div id="adminBorrowedList" class="borrow-grid"></div>
-
   </main>
 
 </div>
