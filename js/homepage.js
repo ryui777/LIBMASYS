@@ -1,4 +1,4 @@
-﻿// HAMBURGER MENU
+// HAMBURGER MENU
 const menuBtn  = document.getElementById('menuBtn');
 const sideMenu = document.getElementById('sideMenu');
 const overlay  = document.querySelector('.menu-overlay');
@@ -76,25 +76,37 @@ window.addEventListener('DOMContentLoaded', async () => {
     const libraryLinks = document.querySelectorAll('a[href="user-db.html"]');
 
     if (user) {
-      if (signUpLink)  signUpLink.style.display  = 'none';
-      if (logInLink)   logInLink.style.display    = 'none';
-      if (logoutBtn)   logoutBtn.style.display    = 'inline-flex';
-      if (profileCont) profileCont.style.display  = 'flex';
-      if (profileName) profileName.textContent    = `Hi, ${user.name.split(' ')[0]}!`;
-      if (user.role !== 'admin') {
-        adminLinks.forEach(link => link.style.display = 'none');
-        adminBorLinks.forEach(link => link.style.display = 'none');
-      } else {
-        adminLinks.forEach(link => link.style.display = '');
-        adminBorLinks.forEach(link => link.style.display = '');
-        libraryLinks.forEach(link => link.style.display = 'none');
-      }
+
+	  if (signUpLink) signUpLink.style.display = 'none';
+	  if (logInLink) logInLink.style.display = 'none';
+	  if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+	  if (profileCont) profileCont.style.display = 'flex';
+	  if (profileName) profileName.textContent = `Hi, ${user.name.split(' ')[0]}!`;
+
+	  // ❌ HIDE ALL FIRST (important fix)
+	  adminLinks.forEach(link => link.style.display = 'none');
+	  adminBorLinks.forEach(link => link.style.display = 'none');
+	  libraryLinks.forEach(link => link.style.display = 'none');
+
+	  // ✅ ADMIN VIEW
+	  if (user.role === 'admin') {
+		adminLinks.forEach(link => link.style.display = 'inline-block');
+		adminBorLinks.forEach(link => link.style.display = 'inline-block');
+	  }
+
+	  // ✅ USER VIEW
+	  if (user.role === 'user') {
+		libraryLinks.forEach(link => link.style.display = 'inline-block');
+	  }
+	  
     } else {
-      if (logoutBtn)   logoutBtn.style.display   = 'none';
-      if (profileCont) profileCont.style.display = 'none';
-      adminLinks.forEach(link => link.style.display = 'none');
-      adminBorLinks.forEach(link => link.style.display = 'none');
-    }
+		  if (logoutBtn) logoutBtn.style.display = 'none';
+		  if (profileCont) profileCont.style.display = 'none';
+
+		  adminLinks.forEach(link => link.style.display = 'none');
+		  adminBorLinks.forEach(link => link.style.display = 'none');
+		  libraryLinks.forEach(link => link.style.display = 'none');
+		}
 
     if (logoutBtn) {
       logoutBtn.addEventListener('click', async () => {
