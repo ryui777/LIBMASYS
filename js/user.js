@@ -127,4 +127,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   loadUserFavorites();
   document.getElementById('borrowed')?.classList.add('active');
   document.querySelectorAll('.tab')[0]?.classList.add('active');
+
+  setInterval(() => {
+    loadUserBorrowed();
+    loadUserFavorites();
+  }, 5000);
 });

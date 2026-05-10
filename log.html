@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="description" content="Log in to PTCHub  your digital library account.">
+  <meta name="description" content="Log in to PTCHub, your digital library account.">
   <title>PTCHub | Log In</title>
   <link rel="stylesheet" href="style/lms_style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -19,16 +19,27 @@
       <div class="logo-img"><img src="images/ptclogo.jpg" alt="PTC Logo"></div>
       <div><div class="title">PTCHub</div><div class="subtitle">Your Digital Library</div></div>
     </a>
-    <nav><a href="homepage.html" class="nav-home">? Home</a></nav>
+    <nav><a href="homepage.html" class="nav-home">Home</a></nav>
   </header>
 
   <main class="logcontainer">
     <div class="auth-card">
-      <span class="tag">Welcome back!</span>
+      <span class="tag">Welcome back</span>
       <h1>Log in to PTCHub</h1>
-      <p class="lead">Enter your credentials to access your books and dashboard.</p>
+      <p class="lead">Choose your account type, then enter your credentials.</p>
 
       <form id="loginForm" class="login-form">
+        <div class="role-toggle" role="radiogroup" aria-label="Login role">
+          <label class="role-option active">
+            <input type="radio" name="role" value="user" checked>
+            <span>Student</span>
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="admin">
+            <span>Admin</span>
+          </label>
+        </div>
+
         <div class="input-grp">
           <input type="email" name="email" id="loginEmail" placeholder="Email address" required autocomplete="email">
           <ion-icon name="mail"></ion-icon>
@@ -46,19 +57,19 @@
         <button type="submit" class="cta2">Log In</button>
       </form>
 
-      <div class="auth-link">Don't have an account? <a href="sin.html">Create one</a></div>
+      <div class="auth-link">Student account only? <a href="sin.html">Create one</a></div>
 
-      <div style="margin-top:20px;padding:14px;background:rgba(252,209,22,0.08);border:1px solid rgba(252,209,22,0.2);border-radius:10px;font-size:13px;color:rgba(255,255,255,0.7);">
-        <strong style="color:var(--yellow)">??? Admin Demo:</strong><br>
-        Email: <code style="color:var(--yellow)">admin@ptchub.com</code><br>
-        Password: <code style="color:var(--yellow)">admin123</code>
+      <div class="demo-note">
+        <strong>Admin Demo:</strong><br>
+        Email: <code>admin@ptchub.com</code><br>
+        Password: <code>admin123</code>
       </div>
     </div>
   </main>
 
   <footer>
-    <div>© <strong>2026 PTCHub</strong> — Digital Library System</div>
-    <div>Facebook &nbsp;•&nbsp; Instagram &nbsp;•&nbsp; TikTok</div>
+    <div>&copy; <strong>2026 PTCHub</strong> - Digital Library System</div>
+    <div>Facebook &nbsp;|&nbsp; Instagram &nbsp;|&nbsp; TikTok</div>
   </footer>
 </div>
 

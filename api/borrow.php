@@ -7,10 +7,10 @@ if ($method === 'GET') {
     if (empty($_SESSION['user'])) jsonResponse(['error' => 'Unauthorized'], 401);
     $user = $_SESSION['user'];
     if ($user['role'] === 'admin') {
-        $result = $conn->query("SELECT bb.id, b.title, b.img, u.name AS userName, u.email, bb.borrowed_date, bb.due_date, bb.status FROM borrowed_books bb JOIN books b ON bb.book_id=b.id JOIN users u ON bb.user_id=u.id ORDER BY bb.id DESC");
+        $result = $conn->query("SELECT bb.id, bb.book_id, b.title, b.img, u.name AS userName, u.email, bb.borrowed_date, bb.due_date, bb.status FROM borrowed_books bb JOIN books b ON bb.book_id=b.id JOIN users u ON bb.user_id=u.id ORDER BY bb.id DESC");
     } else {
         $uid  = $user['id'];
-        $stmt = $conn->prepare("SELECT bb.id, b.title, b.img, bb.borrowed_date, bb.due_date, bb.status FROM borrowed_books bb JOIN books b ON bb.book_id=b.id WHERE bb.user_id=? ORDER BY bb.id DESC");
+        $stmt = $conn->prepare("SELECT bb.id, bb.book_id, b.title, b.img, bb.borrowed_date, bb.due_date, bb.status FROM borrowed_books bb JOIN books b ON bb.book_id=b.id WHERE bb.user_id=? ORDER BY bb.id DESC");
         $stmt->bind_param("i", $uid);
         $stmt->execute();
         $result = $stmt->get_result();

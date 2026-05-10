@@ -13,6 +13,14 @@ document.querySelectorAll('.toggle-pass').forEach(icon => {
   });
 });
 
+document.querySelectorAll('.role-option input').forEach(input => {
+  input.addEventListener('change', () => {
+    document.querySelectorAll('.role-option').forEach(option => {
+      option.classList.toggle('active', option.querySelector('input').checked);
+    });
+  });
+});
+
 // ── SESSION → REDIRECT IF ALREADY LOGGED IN ─────────
 fetch('api/session.php').then(r => r.json()).then(s => {
   if (s.loggedIn) window.location.href = 'homepage.html';
@@ -59,6 +67,7 @@ if (loginForm) {
     const email = loginForm.querySelector('input[name="email"]').value.trim();
     const pass  = loginForm.querySelector('input[name="password"]').value;
     const remember = loginForm.querySelector('input[name="rememberMe"]')?.checked;
+    const role = loginForm.querySelector('input[name="role"]:checked')?.value || 'user';
 
     if (!email || !pass) return showToast('Please enter email and password.', 'warning');
 
@@ -66,11 +75,13 @@ if (loginForm) {
     btn.disabled = true; btn.textContent = 'Logging in…';
 
     try {
-      const res = await API('api/login.php', { method: 'POST', body: JSON.stringify({ email, password: pass }) });
+      const res = await API('api/login.php', { method: 'POST', body: JSON.stringify({ email, password: pass, role }) });
       if (res.success) {
         if (remember) localStorage.setItem('rememberEmail', email);
         showToast(`Welcome back, ${res.user.name}!`, 'success');
-        setTimeout(() => window.location.href = 'homepage.html', 1200);
+        setTimeout(() => {
+          window.location.href = res.user.role === 'admin' ? 'admin-pg.html' : 'books.html';
+        }, 900);
       } else {
         showToast(res.error || 'Invalid credentials.', 'error');
         btn.disabled = false; btn.textContent = 'Log In';

@@ -167,3 +167,20 @@ footer a:hover{color:var(--yellow);}
 .empty-state p{font-size:16px;}
 @media(max-width:900px){.admin-layout{grid-template-columns:1fr;}.features-grid{grid-template-columns:1fr 1fr;}.admin-stats{grid-template-columns:1fr;}.mv-grid{grid-template-columns:1fr;}}
 @media(max-width:600px){body{padding:14px;}.hero h1{font-size:30px;}.features-grid{grid-template-columns:1fr;}.menu-btn{display:flex;align-items:center;justify-content:center;}.main-nav a:not(.sig):not(.log):not(#logoutBtnDesktop){display:none;}.auth-card{padding:28px 20px;}}
+
+.role-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(255,255,255,0.06);border:1px solid var(--glass-border);border-radius:12px;padding:6px;}
+.role-option{display:flex;align-items:center;justify-content:center;min-height:40px;border-radius:9px;color:var(--muted);font-weight:800;cursor:pointer;transition:0.2s;}
+.role-option input{position:absolute;opacity:0;pointer-events:none;}
+.role-option.active{background:var(--yellow);color:#111;box-shadow:0 4px 16px rgba(252,209,22,0.18);}
+.demo-note{margin-top:20px;padding:14px;background:rgba(252,209,22,0.08);border:1px solid rgba(252,209,22,0.2);border-radius:10px;font-size:13px;color:rgba(255,255,255,0.7);}
+.demo-note strong,.demo-note code{color:var(--yellow);}
+.feature-card .feature-icon{display:inline-flex;align-items:center;justify-content:center;min-width:72px;min-height:34px;padding:0 12px;border-radius:999px;background:rgba(252,209,22,0.14);color:var(--yellow);font-size:13px;font-weight:800;margin-bottom:14px;}
+.featured-section{margin-top:32px;}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;}
+.section-heading p{color:var(--muted);font-size:14px;margin-top:4px;}
+.featured-book{border-color:rgba(252,209,22,0.28);text-decoration:none;}
+.featured-book span{font-size:12px;color:var(--yellow);font-weight:700;}
+.book-card.favorited{border-color:var(--yellow);box-shadow:0 0 0 1px rgba(252,209,22,0.28),0 16px 40px rgba(252,209,22,0.08);}
+.book-card.borrowed-card{border-left:4px solid var(--green);}
+.book-actions button:disabled{opacity:0.65;cursor:not-allowed;transform:none;}
+.manage{background:var(--blue);color:#fff;}

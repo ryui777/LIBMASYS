@@ -69,5 +69,8 @@ window.markReturned = async function(id, btn) {
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
-  if (await requireAdmin()) loadBorrowed();
+  if (await requireAdmin()) {
+    loadBorrowed();
+    setInterval(loadBorrowed, 5000);
+  }
 });

@@ -46,8 +46,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     const profileCont = document.getElementById('profileContainer');
     const profileName = document.getElementById('profileName');
 
-    const adminLink    = document.querySelector('a[href="admin-pg.html"]');
-    const adminBorLink = document.querySelector('a[href="admin-bor.html"]');
+    const adminLinks = document.querySelectorAll('a[href="admin-pg.html"]');
+    const adminBorLinks = document.querySelectorAll('a[href="admin-bor.html"]');
+    const libraryLinks = document.querySelectorAll('a[href="user-db.html"]');
 
     if (user) {
       if (signUpLink)  signUpLink.style.display  = 'none';
@@ -56,14 +57,18 @@ window.addEventListener('DOMContentLoaded', async () => {
       if (profileCont) profileCont.style.display  = 'flex';
       if (profileName) profileName.textContent    = `Hi, ${user.name.split(' ')[0]}!`;
       if (user.role !== 'admin') {
-        if (adminLink)    adminLink.style.display    = 'none';
-        if (adminBorLink) adminBorLink.style.display = 'none';
+        adminLinks.forEach(link => link.style.display = 'none');
+        adminBorLinks.forEach(link => link.style.display = 'none');
+      } else {
+        adminLinks.forEach(link => link.style.display = '');
+        adminBorLinks.forEach(link => link.style.display = '');
+        libraryLinks.forEach(link => link.style.display = 'none');
       }
     } else {
       if (logoutBtn)   logoutBtn.style.display   = 'none';
       if (profileCont) profileCont.style.display = 'none';
-      if (adminLink)    adminLink.style.display    = 'none';
-      if (adminBorLink) adminBorLink.style.display = 'none';
+      adminLinks.forEach(link => link.style.display = 'none');
+      adminBorLinks.forEach(link => link.style.display = 'none');
     }
 
     if (logoutBtn) {
@@ -73,9 +78,41 @@ window.addEventListener('DOMContentLoaded', async () => {
       });
     }
   } catch {
-    const adminLink    = document.querySelector('a[href="admin-pg.html"]');
-    const adminBorLink = document.querySelector('a[href="admin-bor.html"]');
-    if (adminLink)    adminLink.style.display    = 'none';
-    if (adminBorLink) adminBorLink.style.display = 'none';
+    document.querySelectorAll('a[href="admin-pg.html"]').forEach(link => link.style.display = 'none');
+    document.querySelectorAll('a[href="admin-bor.html"]').forEach(link => link.style.display = 'none');
   }
+
+  loadFeaturedBooks();
 });
+
+async function loadFeaturedBooks() {
+  const grid = document.getElementById('featuredBooks');
+  if (!grid) return;
+
+  grid.innerHTML = '<p style="color:var(--muted);padding:20px;">Loading featured books...</p>';
+
+  try {
+    const books = await fetch('api/books.php').then(r => r.json());
+    const featured = Array.isArray(books) ? books.slice(0, 4) : [];
+
+    if (!featured.length) {
+      grid.innerHTML = '<div class="empty-state"><p>No featured books yet.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    featured.forEach(book => {
+      const card = document.createElement('a');
+      card.className = 'book-card featured-book';
+      card.href = 'books.html';
+      card.innerHTML = `
+        <img src="${book.img || 'images/default.jpg'}" alt="${book.title}" loading="lazy">
+        <h3>${book.title}</h3>
+        <p>${book.author}</p>
+        <span>${book.category || 'Library Book'}</span>`;
+      grid.appendChild(card);
+    });
+  } catch {
+    grid.innerHTML = '<div class="empty-state"><p>Featured books are unavailable.</p></div>';
+  }
+}
