@@ -34,6 +34,23 @@ document.addEventListener('click', e => {
   }
 });
 
+document.querySelectorAll('.info-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.closest('.info-item');
+    const isOpen = item.classList.contains('active');
+
+    document.querySelectorAll('.info-item').forEach(panel => {
+      panel.classList.remove('active');
+      panel.querySelector('.info-trigger')?.setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('active');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
 // SESSION CHECK
 window.addEventListener('DOMContentLoaded', async () => {
   try {
