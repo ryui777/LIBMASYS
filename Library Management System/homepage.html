@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="PTCHub - Your Digital Library. Browse, borrow, and track books from the PTC collection.">
+  <title>PTCHub | Digital Library System</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+<div class="container page-fade">
+  <header>
+    <a class="logo" href="homepage.html">
+      <div class="logo-img"><img src="images/ptclogo.jpg" alt="PTC Logo"></div>
+      <div><div class="title">PTCHub</div><div class="subtitle">Your Digital Library</div></div>
+    </a>
+    <nav class="main-nav">
+      <a href="homepage.html" class="nlink active-link">Home</a>
+      <a href="about.html" class="nlink">About</a>
+      <a href="books.html" class="nlink">Books</a>
+      <a href="user-db.html" class="nlink">My Library</a>
+      <a href="admin-pg.html" style="display:none" class="nlink">Admin</a>
+      <a href="admin-bor.html" style="display:none" class="nlink">Borrowed</a>
+      <a href="#" id="logoutBtnDesktop" style="display:none;padding:9px 16px;border-radius:10px;background:rgba(206,17,38,0.2);color:#ff6b6b;border:1.5px solid rgba(206,17,38,0.3);font-weight:600;font-size:14px;text-decoration:none;transition:0.2s">Log Out</a>
+      <a href="sin.html" class="sig nlink">Sign Up</a>
+      <a href="log.html" class="log nlink">Log In</a>
+      <button id="menuBtn" class="menu-btn"><span></span><span></span><span></span></button>
+    </nav>
+    <div id="profileContainer" class="profile-container" style="display:none">
+      <span id="profileName"></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">Welcome to PTC Hub!</span>
+        <h1>Your Digital Library for Learning, Reading & Discovery</h1>
+        <p class="lead">Explore books and resources curated for PTC students. Learn at your own pace, discover new ideas, and enjoy a modern library experience anytime, anywhere.</p>
+        <div class="search">
+          <input id="heroSearch" placeholder="Search books, authors, categories">
+          <button onclick="window.location.href='books.html?q='+document.getElementById('heroSearch').value">Search</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-grid">
+      <div class="feature-card" style="animation-delay:0.1s">
+        <div class="feature-icon">??</div>
+        <h3>Browse Books</h3>
+        <p>Explore our growing catalog of academic books, references, and resources organized by category.</p>
+      </div>
+      <div class="feature-card" style="animation-delay:0.2s">
+        <div class="feature-icon">??</div>
+        <h3>Borrow &amp; Track</h3>
+        <p>Borrow books digitally, track due dates, and manage your reading list from your personal dashboard.</p>
+      </div>
+      <div class="feature-card" style="animation-delay:0.3s">
+        <div class="feature-icon">?</div>
+        <h3>Save Favorites</h3>
+        <p>Mark books you love as favorites and access them quickly whenever you need them.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="sideMenu" class="side-menu">
+    <button id="closeBtn" class="menu-btn active"><span></span><span></span><span></span></button>
+    <a href="books.html">📚 Books</a>
+    <a href="user-db.html">📦 My Library</a>
+    <a href="admin-pg.html" id="sideAdminLink">🛠️ Admin Dashboard</a>
+    <a href="admin-bor.html" id="sideAdminBorLink">📋 Borrowed Books</a>
+  </div>
+  <div class="menu-overlay"></div>
+
+  <footer>
+    <div>© <strong>2026 PTCHub</strong> — Digital Library System</div>
+    <div>Facebook &nbsp;•&nbsp; Instagram &nbsp;•&nbsp; TikTok</div>
+  </footer>
+</div>
+
+<script src="js/toast.js"></script>
+<script src="js/homepage.js"></script>
+</body>
+</html>

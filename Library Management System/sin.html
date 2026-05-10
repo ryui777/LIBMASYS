@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Create your PTCHub account to access the digital library.">
+  <title>PTCHub | Sign Up</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+<div class="container page-fade">
+  <header>
+    <a class="logo" href="homepage.html">
+      <div class="logo-img"><img src="images/ptclogo.jpg" alt="PTC Logo"></div>
+      <div><div class="title">PTCHub</div><div class="subtitle">Your Digital Library</div></div>
+    </a>
+    <nav><a href="homepage.html" class="nav-home">? Home</a></nav>
+  </header>
+
+  <main class="sincontainer">
+    <div class="auth-card">
+      <span class="tag">Join Now!</span>
+      <h1>Create an Account</h1>
+      <p class="lead">Sign up to access library resources, manage your borrowed books, and track your reading history.</p>
+
+      <form id="SignUpForm" class="signUp-form">
+        <div class="input-grp">
+          <input type="text" name="name" id="fname" placeholder="Full Name" required autocomplete="name">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="input-grp">
+          <input type="email" name="email" id="email" placeholder="Email Address" required autocomplete="email">
+          <ion-icon name="mail"></ion-icon>
+        </div>
+        <div class="input-grp">
+          <input type="password" name="password" id="pass" placeholder="Password (min. 8 characters)" required autocomplete="new-password">
+          <ion-icon class="toggle-pass" id="togglePassword" name="eye-off"></ion-icon>
+        </div>
+        <div class="input-grp">
+          <input type="password" name="confirmPassword" id="conpass" placeholder="Confirm Password" required autocomplete="new-password">
+          <ion-icon class="toggle-pass" id="toggleConPassword" name="eye-off"></ion-icon>
+        </div>
+        <button type="submit" class="cta">Sign Up</button>
+      </form>
+
+      <div class="auth-link">Already have an account? <a href="log.html">Log in</a></div>
+    </div>
+  </main>
+
+  <footer>
+    <div>© <strong>2026 PTCHub</strong> — Digital Library System</div>
+    <div>Facebook &nbsp;•&nbsp; Instagram &nbsp;•&nbsp; TikTok</div>
+  </footer>
+</div>
+
+<script src="js/toast.js"></script>
+<script src="js/log-sin.js" defer></script>
+</body>
+</html>

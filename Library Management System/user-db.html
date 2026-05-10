@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Borrowed Books</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <h2>📚 My Library</h2>
+      <p style="margin:0; color:#666;">Borrowed books and favorites</p>
+    </div>
+    <nav>
+      <a href="homepage.html" class="nlink">Home</a>
+    </nav>
+  </header>
+
+  <main class="user-container">
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab" onclick="showTab('borrowed')">📚 Borrowed Books</button>
+      <button class="tab" onclick="showTab('favorites')">❤️ Favorites</button>
+    </div>
+
+    <!-- BORROWED -->
+    <section id="borrowed" class="tab-content">
+      <h3>My Borrowed Books</h3>
+      <div id="borrowedList" class="list-grid"></div>
+    </section>
+
+    <!-- FAVORITES -->
+    <section id="favorites" class="tab-content">
+      <h3>My Favorites</h3>
+      <div id="favList" class="book-grid"></div>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="js/user.js"></script>
+</body>
+</html>

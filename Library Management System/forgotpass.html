@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Reset your PTCHub password.">
+  <title>PTCHub | Forgot Password</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+<div class="container page-fade">
+  <header>
+    <a class="logo" href="homepage.html">
+      <div class="logo-img"><img src="images/ptclogo.jpg" alt="PTC Logo"></div>
+      <div><div class="title">PTCHub</div><div class="subtitle">Your Digital Library</div></div>
+    </a>
+    <nav><a href="log.html" class="nav-home">? Back to Login</a></nav>
+  </header>
+
+  <main class="logcontainer">
+    <div class="auth-card">
+      <span class="tag">Reset Password</span>
+      <h1>Forgot your password?</h1>
+      <p class="lead">Enter your registered email address and we will send you reset instructions.</p>
+
+      <form id="forgotPassForm" class="login-form">
+        <div class="input-grp">
+          <input type="email" name="email" placeholder="Enter your email address" required autocomplete="email">
+          <ion-icon name="mail"></ion-icon>
+        </div>
+        <button type="submit" class="cta2">Send Reset Link</button>
+      </form>
+
+      <div class="auth-link" style="margin-top:16px">Remembered your password? <a href="log.html">Log in</a></div>
+    </div>
+  </main>
+
+  <footer>
+    <div>© <strong>2026 PTCHub</strong> — Digital Library System</div>
+    <div>Facebook &nbsp;•&nbsp; Instagram &nbsp;•&nbsp; TikTok</div>
+  </footer>
+</div>
+
+<script src="js/toast.js"></script>
+<script>
+document.getElementById('forgotPassForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = this.querySelector('input[name="email"]').value;
+  showToast('?? Reset link sent to ' + email + ' (Demo only)', 'success', 4000);
+  setTimeout(() => window.location.href = 'log.html', 2500);
+});
+</script>
+</body>
+</html>

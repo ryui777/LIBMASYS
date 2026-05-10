@@ -1,0 +1,58 @@
+Title: Beginners HTML
+Author: Wendy Willard
+Category: Basic HTML
+Image: images/books/book1.jpg
+
+
+Title: CSS Mastery
+Author: Andy Budd
+Category: Advanced CSS
+Image: images/books/book2.jpg
+
+
+Title: JavaScript For Beginners
+Author: Tim Simon
+Category: Programming
+Image: images/books/book3.jpg
+
+
+Title: The Life, Works, and Writings of Jose Rizal
+Author: Eugene Raymond P. Crudo, Herald Ian C. Guiwa, Reidan M. Pawilien
+Category: History
+Image: images/books/book4.jpg
+
+
+Title: Income Taxation
+Author: Rex B. Banggawan, CPA, MBA
+Category: Accounting
+Image: images/books/book5.jpg
+
+
+Title: Scientology: The Fundamentals of Thought
+Author: L. Ron Hubbard
+Category: Basic Book of the Theory & Practice of Scientology
+Image: images/books/book6.jpg
+
+
+Title: Introduction to Application Development and Emerging Technologies
+Author: Jake R. Pomperada, MAED-IT, MIT
+Category: Information Technology Education
+Image: images/books/book7.jpg
+
+
+Title: Networking for Dummies
+Author: Doug Lowe
+Category: Computer Networking
+Image: images/books/book8.jpg
+
+
+Title: IT Application Tools in Business
+Author: Roloulyn Rodriguez MAATA, Ronina Caoili-Tayuan
+Category: Information Technology
+Image: images/books/book9.jpg
+
+
+Title: Information Management
+Author: Ramesh Singh
+Category: Information Science/Technology
+Image: images/books/book10.jpg

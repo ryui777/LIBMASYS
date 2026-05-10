@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Borrowed Books</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+  <style>
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-panel {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 380px;
+      height: 100vh;
+      background: rgba(10, 31, 13, 0.95);
+      backdrop-filter: blur(24px);
+      border-left: 1px solid var(--glass-border);
+      padding: 24px;
+      z-index: 1000;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      box-shadow: -4px 0 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-panel.active {
+      right: 0;
+    }
+
+    .modal-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .modal-panel-header h3 {
+      color: var(--yellow);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.2s;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--yellow);
+      transform: rotate(90deg);
+    }
+
+    .control-buttons {
+      display: flex;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+    .control-btn {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1.5px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .control-btn:hover {
+      background: rgba(252, 209, 22, 0.15);
+      color: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    .control-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .modal-content {
+      display: none;
+    }
+
+    .modal-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .modal-panel {
+        width: 100%;
+        right: -100%;
+      }
+
+      .control-buttons {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+  // PROTECT ADMIN PAGE - REDIRECT IF NOT ADMIN
+  window.addEventListener('DOMContentLoaded', () => {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser || loggedInUser.role !== 'admin') {
+      window.location.href = 'homepage.html';
+    }
+  });
+</script>
+
+<div class="container">
+
+  <header>
+    <h2>📊 Borrowed Books Management</h2>
+    <nav>
+      <div class="control-buttons">
+        <button class="control-btn" data-panel="filter">🔍 Filter</button>
+        <button class="control-btn" data-panel="sort">📊 Sort</button>
+        <button class="control-btn" data-panel="export">💾 Export</button>
+        <a href="admin-pg.html" class="nlink">Admin Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <h3>All Borrowed Books</h3>
+
+    <div id="adminBorrowedList" class="borrow-grid"></div>
+
+  </main>
+
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- SIDE PANEL -->
+<div class="modal-panel" id="modalPanel">
+  <div class="modal-panel-header">
+    <h3 id="panelTitle">Panel</h3>
+    <button class="modal-close" id="closePanel">✕</button>
+  </div>
+
+  <!-- Filter Content -->
+  <div class="modal-content" id="filterContent">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label style="font-size: 13px; color: var(--muted); font-weight: 600;">By Status</label>
+        <select id="statusFilter" style="padding: 10px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.07); color: #fff;">
+          <option value="">All Status</option>
+          <option value="Borrowed">Borrowed</option>
+          <option value="Returned">Returned</option>
+        </select>
+      </div>
+      <button class="add-btn" onclick="applyFilter()">Apply Filter</button>
+    </div>
+  </div>
+
+  <!-- Sort Content -->
+  <div class="modal-content" id="sortContent">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label style="font-size: 13px; color: var(--muted); font-weight: 600;">Sort By</label>
+        <select id="sortBy" style="padding: 10px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.07); color: #fff;">
+          <option value="date-desc">Newest First</option>
+          <option value="date-asc">Oldest First</option>
+          <option value="title">Title (A-Z)</option>
+          <option value="user">User Name</option>
+        </select>
+      </div>
+      <button class="add-btn" onclick="applySort()">Apply Sort</button>
+    </div>
+  </div>
+
+  <!-- Export Content -->
+  <div class="modal-content" id="exportContent">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <p style="font-size: 14px; color: rgba(255, 255, 255, 0.8);">Export borrowed books data in your preferred format:</p>
+      <button class="add-btn" onclick="exportData('csv')" style="background: var(--green);">📄 Export as CSV</button>
+      <button class="add-btn" onclick="exportData('json')" style="background: var(--blue);">📋 Export as JSON</button>
+      <button class="add-btn" onclick="exportData('pdf')" style="background: var(--red);">📑 Export as PDF</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/admin-bor.js"></script>
+<script>
+  // Modal Panel Controls
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalPanel = document.getElementById('modalPanel');
+  const closePanel = document.getElementById('closePanel');
+  const panelTitle = document.getElementById('panelTitle');
+  const controlBtns = document.querySelectorAll('.control-btn');
+
+  const panels = {
+    filter: { title: '🔍 Filter Books', id: 'filterContent' },
+    sort: { title: '📊 Sort Books', id: 'sortContent' },
+    export: { title: '💾 Export Data', id: 'exportContent' }
+  };
+
+  function openPanel(panelName) {
+    const panel = panels[panelName];
+    if (!panel) return;
+
+    // Hide all content
+    document.querySelectorAll('.modal-content').forEach(el => el.classList.remove('active'));
+    // Show selected content
+    document.getElementById(panel.id).classList.add('active');
+    // Update title
+    panelTitle.textContent = panel.title;
+    // Show modal
+    modalOverlay.classList.add('active');
+    modalPanel.classList.add('active');
+    // Update button states
+    controlBtns.forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-panel="${panelName}"]`).classList.add('active');
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    modalPanel.classList.remove('active');
+    controlBtns.forEach(btn => btn.classList.remove('active'));
+  }
+
+  // Event listeners
+  controlBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const panelName = btn.getAttribute('data-panel');
+      openPanel(panelName);
+    });
+  });
+
+  closePanel.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', closeModal);
+
+  // Prevent panel click from closing
+  modalPanel.addEventListener('click', (e) => e.stopPropagation());
+
+  // Placeholder functions for panel actions
+  window.applyFilter = function() { showToast('Filter applied!', 'success'); closeModal(); };
+  window.applySort = function() { showToast('Sort applied!', 'success'); closeModal(); };
+  window.exportData = function(format) { showToast(`Exporting as ${format.toUpperCase()}...`, 'success'); closeModal(); };
+</script>
+</body>
+</html>

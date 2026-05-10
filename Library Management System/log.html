@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Log in to PTCHub  your digital library account.">
+  <title>PTCHub | Log In</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+<div class="container page-fade">
+  <header>
+    <a class="logo" href="homepage.html">
+      <div class="logo-img"><img src="images/ptclogo.jpg" alt="PTC Logo"></div>
+      <div><div class="title">PTCHub</div><div class="subtitle">Your Digital Library</div></div>
+    </a>
+    <nav><a href="homepage.html" class="nav-home">? Home</a></nav>
+  </header>
+
+  <main class="logcontainer">
+    <div class="auth-card">
+      <span class="tag">Welcome back!</span>
+      <h1>Log in to PTCHub</h1>
+      <p class="lead">Enter your credentials to access your books and dashboard.</p>
+
+      <form id="loginForm" class="login-form">
+        <div class="input-grp">
+          <input type="email" name="email" id="loginEmail" placeholder="Email address" required autocomplete="email">
+          <ion-icon name="mail"></ion-icon>
+        </div>
+        <div class="input-grp">
+          <input type="password" name="password" id="loginPass" placeholder="Password" required autocomplete="current-password">
+          <ion-icon class="toggle-pass" name="eye-off"></ion-icon>
+        </div>
+        <div class="rempass-cont">
+          <label class="remember-me">
+            <input type="checkbox" name="rememberMe"> Remember me
+          </label>
+          <a href="forgotpass.html" class="forgot-pass">Forgot Password?</a>
+        </div>
+        <button type="submit" class="cta2">Log In</button>
+      </form>
+
+      <div class="auth-link">Don't have an account? <a href="sin.html">Create one</a></div>
+
+      <div style="margin-top:20px;padding:14px;background:rgba(252,209,22,0.08);border:1px solid rgba(252,209,22,0.2);border-radius:10px;font-size:13px;color:rgba(255,255,255,0.7);">
+        <strong style="color:var(--yellow)">??? Admin Demo:</strong><br>
+        Email: <code style="color:var(--yellow)">admin@ptchub.com</code><br>
+        Password: <code style="color:var(--yellow)">admin123</code>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>© <strong>2026 PTCHub</strong> — Digital Library System</div>
+    <div>Facebook &nbsp;•&nbsp; Instagram &nbsp;•&nbsp; TikTok</div>
+  </footer>
+</div>
+
+<script src="js/toast.js"></script>
+<script src="js/log-sin.js" defer></script>
+</body>
+</html>

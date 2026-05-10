@@ -1,0 +1,25 @@
+Here’s a curated set of library-friendly green background colors centered around your base color #2e7d32 (a deep forest green). These are chosen to feel calm, readable, and “academic”—good for libraries, reading portals, or knowledge-based websites.
+
+🌿 Deep & Primary Greens (formal, strong backgrounds)
+#2e7d32 – Forest Green (your base)
+#1b5e20 – Dark Evergreen (darker, more formal)
+#256029 – Deep Pine Green (slightly softened)
+#0f3d1a – Very Dark Green (almost black-green, elegant)
+
+🌱 Balanced Greens (ideal for main UI backgrounds)
+#388e3c – Classic Library Green (slightly brighter than base)
+#2f6b2f – Muted Forest Green (less saturated, easy on eyes)
+#3a7d44 – Soft Academic Green (friendly but still formal)
+#2e6f4e – Green-teal blend (modern institutional feel)
+
+🍃 Light & Soft Greens (for sections/cards/background layers)
+#81c784 – Soft Mint Green (calm, airy)
+#a5d6a7 – Pale Sage Green (very readable background layer)
+#c8e6c9 – Light Pastel Green (great for cards/panels)
+#e8f5e9 – Near-white green (clean reading background)
+
+📚 Recommended combinations for a library website
+Primary background: #2e7d32 or #1b5e20
+Section panels: #a5d6a7 or #c8e6c9
+Hover/interactive: #388e3c or #3a7d44
+Page base background: #e8f5e9

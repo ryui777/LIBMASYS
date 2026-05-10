@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin - Manage Books</title>
+  <link rel="stylesheet" href="style/lms_style.css">
+</head>
+
+<body class="homepage">
+
+<script>
+  // PROTECT ADMIN PAGE - REDIRECT IF NOT ADMIN
+  window.addEventListener('DOMContentLoaded', () => {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser || loggedInUser.role !== 'admin') {
+      window.location.href = 'homepage.html';
+    }
+  });
+</script>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <h2>🛠️ Admin Dashboard</h2>
+      <p style="margin:0; color:#666;">Manage your library books</p>
+    </div>
+	<nav>
+      <a href="homepage.html" class="nlink">Home</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- DASHBOARD GRID -->
+    <div class="admin-grid">
+
+      <!-- ADD BOOK CARD -->
+      <section class="admin-card">
+        <h3>➕ Add New / ✏️ Edit Book</h3>
+
+        <div class="form-group">
+          <label>Title</label>
+          <input id="title" placeholder="Enter book title">
+        </div>
+
+        <div class="form-group">
+          <label>Author</label>
+          <input id="author" placeholder="Enter author name">
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <input id="category" placeholder="e.g. HTML, Programming, Design">
+        </div>
+
+        <div class="form-group">
+          <label>Image</label>
+          <input id="image" placeholder="images/books/book1.jpg">
+        </div>
+
+        <button class="add-btn" onclick="addOrUpdateBook()">Add Book</button>
+      </section>
+
+      <!-- BOOK LIST CARD -->
+      <section class="admin-card">
+        <h3>📚 Book Collection</h3>
+        <div id="adminBookList" class="book-grid"></div>
+      </section>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script src="js/admin-pg.js"></script>
+</body>
+</html>
