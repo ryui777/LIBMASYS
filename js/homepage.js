@@ -6,9 +6,17 @@ const overlay  = document.querySelector('.menu-overlay');
 if (menuBtn) {
   menuBtn.addEventListener('click', e => {
     e.stopPropagation();
-    sideMenu.classList.toggle('active');
-    overlay.classList.toggle('active');
-    menuBtn.classList.toggle('active');
+    const isOpen = sideMenu.classList.contains('active');
+
+    if (isOpen) {
+      sideMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      menuBtn.classList.remove('active');
+    } else {
+      sideMenu.classList.add('active');
+      overlay.classList.add('active');
+      menuBtn.classList.add('active');
+    }
   });
 }
 if (overlay) {

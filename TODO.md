@@ -1,0 +1,3 @@
+- [x] Update homepage right-panel behavior to open only via 3-dot button beside Log In
+- [x] Ensure right panel remains hidden by default and does not auto-open
+- [x] Verify close behavior (overlay, close button, outside click) still works correctly
