@@ -7,21 +7,25 @@ $conn = null;
 $error = '';
 
 $connection_attempts = [
-    ['host' => 'localhost', 'user' => 'root', 'pass' => '', 'name' => 'via localhost'],
-    ['host' => '127.0.0.1', 'user' => 'root', 'pass' => '', 'name' => 'via 127.0.0.1'],
+    ['host' => '127.0.0.1', 'port' => 3306, 'user' => 'root', 'pass' => '', 'name' => 'via 127.0.0.1:3306'],
+    ['host' => 'localhost', 'port' => 3306, 'user' => 'root', 'pass' => '', 'name' => 'via localhost:3306'],
+    ['host' => 'localhost', 'port' => null, 'user' => 'root', 'pass' => '', 'name' => 'via localhost'],
 ];
 
 // Also try to get connection info from existing databases
-foreach ($connection_attempts as $attempt) {
-    try {
-        $conn = new mysqli($attempt['host'], $attempt['user'], $attempt['pass']);
+if (class_exists('mysqli')) {
+    foreach ($connection_attempts as $attempt) {
+        if (function_exists('mysqli_report')) {
+            mysqli_report(MYSQLI_REPORT_OFF);
+        }
+        $conn = @new mysqli($attempt['host'], $attempt['user'], $attempt['pass'], '', $attempt['port']);
         if (!$conn->connect_error) {
             $connected = true;
-            echo json_encode(['success' => false, 'status' => 'connected', 'method' => $attempt['name']]);
             break;
         }
-    } catch (Exception $e) {
-        $error = $e->getMessage();
+
+        $error = $conn->connect_error;
+        $conn = null;
     }
 }
 
@@ -31,7 +35,6 @@ if (!$connected) {
         $pdo = new PDO('mysql:host=localhost', 'root', '');
         $connected = true;
         $conn = $pdo;
-        echo json_encode(['success' => false, 'status' => 'connected_pdo']);
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,
@@ -58,31 +61,46 @@ if (!file_exists($sql_file)) {
 }
 
 $sql = file_get_contents($sql_file);
-$queries = array_filter(array_map('trim', explode(';', $sql)), function($q) { return $q && !str_starts_with($q, '--'); });
 
-$imported = 0;
-$failed = 0;
-
-foreach ($queries as $query) {
+if ($conn instanceof PDO) {
     try {
-        if (is_object($conn) && get_class($conn) === 'PDO') {
-            $conn->exec($query . ';');
-        } else {
-            $conn->query($query);
-        }
-        $imported++;
+        $conn->exec($sql);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Database setup complete. lms_db is ready.',
+            'method' => 'PDO localhost'
+        ]);
     } catch (Exception $e) {
-        $failed++;
-        error_log("Query failed: " . $e->getMessage());
+        echo json_encode([
+            'success' => false,
+            'error' => 'Database import failed',
+            'details' => $e->getMessage()
+        ]);
     }
+    exit;
 }
 
+if (!$conn->multi_query($sql)) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'Database import failed',
+        'details' => $conn->error
+    ]);
+    exit;
+}
+
+do {
+    if ($result = $conn->store_result()) {
+        $result->free();
+    }
+} while ($conn->more_results() && $conn->next_result());
+
 echo json_encode([
-    'success' => $failed == 0,
-    'message' => "Database setup complete. Imported $imported queries.",
-    'imported' => $imported,
-    'failed' => $failed
+    'success' => $conn->errno === 0,
+    'message' => $conn->errno === 0 ? 'Database setup complete. lms_db is ready.' : 'Database setup finished with errors.',
+    'method' => $attempt['name'] ?? 'mysqli',
+    'error' => $conn->errno ? $conn->error : null
 ]);
 
-$conn = null;
+$conn->close();
 ?>
