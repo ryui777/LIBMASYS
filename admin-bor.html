@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Admin - Borrowed Books</title>
   <link rel="stylesheet" href="style/lms_style.css">
+  <!--  For Excel  -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <!--  For PDF  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
@@ -14,6 +19,15 @@
     <h2>Borrowed Books Management</h2>
     <nav>
       <a href="admin-pg.html" class="nlink">Admin Home</a>
+	  
+	  <button onclick="exportToPDF()" class="btn-export pdf-btn">
+		Export PDF
+	  </button>
+
+	  <button onclick="exportToExcel()" class="btn-export excel-btn">
+		Export Excel
+	  </button>
+	  
     </nav>
   </header>
 
