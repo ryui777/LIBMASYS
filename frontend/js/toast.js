@@ -5,7 +5,9 @@
   document.body.appendChild(container);
 
   window.API = async function(path, opts = {}) {
-    const API_BASE = 'https://libmasys.wuaze.com/';
+    // Relative path to local backend if served from the same root
+    const API_BASE = '../../backend/'; 
+    // const API_BASE = 'https://libmasys.wuaze.com/'; // Production
     const response = await fetch(API_BASE + path, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
