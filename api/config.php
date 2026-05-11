@@ -1,48 +1,58 @@
 <?php
 session_start();
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'lms_db');
 
-$connectionAttempts = [
-    ['host' => '127.0.0.1', 'port' => 3306, 'socket' => null],
-    ['host' => 'localhost', 'port' => 3306, 'socket' => null],
-    ['host' => 'localhost', 'port' => null, 'socket' => 'D:/For Acads/apps/App/PhotoshopCS6/mysql/mysql.sock'],
-    ['host' => 'localhost', 'port' => null, 'socket' => null],
-];
+/*
+|--------------------------------------------------------------------------
+| AUTO DETECT ENVIRONMENT
+|--------------------------------------------------------------------------
+| If running on localhost → use XAMPP settings
+| If running on hosting → use production DB settings
+*/
 
-$conn = null;
-$lastError = '';
+$isLocal = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']);
 
-foreach ($connectionAttempts as $attempt) {
-    if (function_exists('mysqli_report')) {
-        mysqli_report(MYSQLI_REPORT_OFF);
-    }
-    $conn = @new mysqli(
-        $attempt['host'],
-        DB_USER,
-        DB_PASS,
-        DB_NAME,
-        $attempt['port'] ?? null,
-        $attempt['socket'] ?? null
-    );
-
-    if (!$conn->connect_error) {
-        break;
-    }
-
-    $lastError = $conn->connect_error;
-    $conn = null;
+if ($isLocal) {
+    // =========================
+    // LOCAL (XAMPP)
+    // =========================
+    $DB_HOST = "127.0.0.1";
+    $DB_USER = "root";
+    $DB_PASS = "";
+    $DB_NAME = "lms_db";
+} else {
+    // =========================
+    // HOSTING (InfinityFree / cPanel)
+    // =========================
+    $DB_HOST = "sql104.infinityfree.com"; // CHANGE if your host differs
+    $DB_USER = "if0_41886042";
+    $DB_PASS = "programmer404";
+    $DB_NAME = "if0_41886042_lms_db";
 }
 
-if (!$conn) {
+/*
+|--------------------------------------------------------------------------
+| CONNECT TO DATABASE
+|--------------------------------------------------------------------------
+*/
+
+$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+
+if ($conn->connect_error) {
     http_response_code(500);
     die(json_encode([
-        'error' => 'Database connection failed: ' . $lastError,
-        'hint' => 'Start Apache and MySQL in XAMPP, then open setup.php once to create/import lms_db.'
+        "error" => "Database connection failed: " . $conn->connect_error,
+        "host_used" => $DB_HOST,
+        "db_used" => $DB_NAME
     ]));
 }
-$conn->set_charset('utf8mb4');
+
+$conn->set_charset("utf8mb4");
+
+/*
+|--------------------------------------------------------------------------
+| HEADERS (API SAFE)
+|--------------------------------------------------------------------------
+*/
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -53,6 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
+/*
+|--------------------------------------------------------------------------
+| HELPER FUNCTION
+|--------------------------------------------------------------------------
+*/
 
 function jsonResponse($data, $code = 200) {
     http_response_code($code);
