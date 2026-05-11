@@ -2,24 +2,20 @@
 // -----------------------------
 // ENV/CONFIG
 // -----------------------------
-$defaultDbHost = '127.0.0.1';
-$defaultDbPort = 3306;
-$defaultDbUser = 'root';
-$defaultDbPass = '';
-$defaultDbName = 'lms_db';
+// --- DATABASE SETTINGS (Fill these from your hosting panel) ---
+define('DB_HOST', 'sql208.infinityfree.com'); // Find this in InfinityFree 'MySQL Databases'
+define('DB_USER', 'if0_41883431');
+define('DB_PASS', 'MBEZlGYbi6WaBAC'); // Note: I kept the space at the end as provided
+define('DB_NAME', 'if0_41883431_if0_41883431_lms'); // Create this in InfinityFree first
+define('DB_PORT', 3306);
 
-// For hosting, set these in your panel or edit directly if env vars are unavailable.
-define('DB_HOST', getenv('DB_HOST') ?: $defaultDbHost);
-define('DB_PORT', (int)(getenv('DB_PORT') ?: $defaultDbPort));
-define('DB_USER', getenv('DB_USER') ?: $defaultDbUser);
-define('DB_PASS', getenv('DB_PASS') ?: $defaultDbPass);
-define('DB_NAME', getenv('DB_NAME') ?: $defaultDbName);
-
-// Allowed origins for browser requests (comma-separated env var)
-// Example:
-// ALLOWED_ORIGINS=https://your-site.com,https://www.your-site.com,http://localhost
-$allowedOriginsEnv = getenv('ALLOWED_ORIGINS') ?: 'https://ryui777.github.io,http://localhost';
-$allowedOrigins = array_filter(array_map('trim', explode(',', $allowedOriginsEnv)));
+// --- CORS SETTINGS ---
+// Allow your GitHub Pages domain to access this API
+$allowedOrigins = [
+    'https://ryui777.github.io',
+    'http://localhost',
+    'http://127.0.0.1'
+];
 
 // Local fallback for development if ALLOWED_ORIGINS is not set.
 if (empty($allowedOrigins)) {
@@ -33,20 +29,26 @@ if (empty($allowedOrigins)) {
     ];
 }
 
-// -----------------------------
-// CORS + SESSION SETUP
-// -----------------------------
+// --- CORS + SESSION SETUP ---
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin && in_array($origin, $allowedOrigins, true)) {
+
+// For now, let's allow your GitHub Pages origin specifically
+$allowedOrigins = [
+    'https://ryui777.github.io',
+    'http://localhost',
+    'http://127.0.0.1'
+];
+
+if (in_array($origin, $allowedOrigins)) {
     header('Access-Control-Allow-Origin: ' . $origin);
-    header('Vary: Origin');
     header('Access-Control-Allow-Credentials: true');
+    header('Vary: Origin');
 }
 
-header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
+// Handle Preflight (OPTIONS) requests immediately
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit();
@@ -63,13 +65,14 @@ if (PHP_VERSION_ID >= 70300) {
         'lifetime' => 0,
         'path' => '/',
         'domain' => '',
-        'secure' => $isHttps,      // true on HTTPS hosting
+        'secure' => true,         // Required for SameSite=None
         'httponly' => true,
-        'samesite' => 'Lax',       // if frontend & API are different sites, change to 'None' (requires secure=true)
+        'samesite' => 'None',     // Allows cross-site session cookies
     ]);
 } else {
     ini_set('session.cookie_httponly', '1');
-    ini_set('session.cookie_secure', $isHttps ? '1' : '0');
+    ini_set('session.cookie_secure', '1');
+    ini_set('session.cookie_samesite', 'None');
 }
 
 if (session_status() !== PHP_SESSION_ACTIVE) {

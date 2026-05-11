@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS lms_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE lms_db;
+-- Database tables for LMS
+-- (Removed CREATE DATABASE for hosting compatibility)
 
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,

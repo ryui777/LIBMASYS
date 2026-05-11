@@ -5,9 +5,14 @@
   document.body.appendChild(container);
 
   window.API = async function(path, opts = {}) {
-    // Relative path to local backend if served from the same root
-    const API_BASE = '../../backend/'; 
-    // const API_BASE = 'https://libmasys.wuaze.com/'; // Production
+    // Detect if we are on GitHub Pages or local
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    // REPLACE this with your actual backend URL after you host it
+    const REMOTE_BACKEND = 'https://libmasys.wuaze.com/'; 
+    const LOCAL_BACKEND = '../../backend/';
+    
+    const API_BASE = isLocal ? LOCAL_BACKEND : REMOTE_BACKEND;
     const response = await fetch(API_BASE + path, {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
