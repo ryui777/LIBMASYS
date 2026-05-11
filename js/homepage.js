@@ -74,6 +74,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const adminLinks = document.querySelectorAll('a[href="admin-pg.html"]');
     const adminBorLinks = document.querySelectorAll('a[href="admin-bor.html"]');
     const libraryLinks = document.querySelectorAll('a[href="user-db.html"]');
+	const UserBooksCatalog = document.querySelectorAll('a[href="books.html"]');
 
     if (user) {
 
@@ -87,6 +88,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	  adminLinks.forEach(link => link.style.display = 'none');
 	  adminBorLinks.forEach(link => link.style.display = 'none');
 	  libraryLinks.forEach(link => link.style.display = 'none');
+	  UserBooksCatalog.forEach(link => link.style.display = 'none');
 
 	  // ✅ ADMIN VIEW
 	  if (user.role === 'admin') {
@@ -97,6 +99,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	  // ✅ USER VIEW
 	  if (user.role === 'user') {
 		libraryLinks.forEach(link => link.style.display = 'inline-block');
+		UserBooksCatalog.forEach(link => link.style.display = 'inline-block');
 	  }
 	  
     } else {
@@ -106,6 +109,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 		  adminLinks.forEach(link => link.style.display = 'none');
 		  adminBorLinks.forEach(link => link.style.display = 'none');
 		  libraryLinks.forEach(link => link.style.display = 'none');
+		  UserBooksCatalog.forEach(link => link.style.display = 'none');
 		}
 
     if (logoutBtn) {
