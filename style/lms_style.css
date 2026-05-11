@@ -246,3 +246,12 @@ body.home-page::before{background:linear-gradient(180deg,rgba(7,20,13,0.2),rgba(
 .home-page footer{margin-top:22px;padding-top:18px;}
 @media(max-width:1000px){.home-page .features-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.home-page .hero h1{font-size:42px;}.home-page .hero-content{padding:38px;}}
 @media(max-width:640px){body.home-page{padding:12px;}.home-page header{top:8px;align-items:flex-start;gap:12px;}.home-page .main-nav{justify-content:flex-end;flex-wrap:wrap;}.home-page .main-nav a.nlink:not(.sig):not(.log):not(#logoutBtnDesktop){display:none;}.home-page .hero{min-height:560px;}.home-page .hero-content{padding:28px 20px;}.home-page .hero h1{font-size:34px;}.home-page .search{flex-direction:column;width:100%;}.home-page .search button{width:100%;}.home-page .features-grid{grid-template-columns:1fr;}.home-page .side-menu{width:min(92vw,420px);right:-94vw;}.info-content p{padding-left:18px;}.info-trigger{grid-template-columns:auto 1fr auto;}}
+
+/* Export Buttons Base */
+.btn-export {padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; border: 1px solid transparent; transition: 0.25s; margin-left: 8px; backdrop-filter: blur(10px);}
+/* PDF BUTTON - RED THEME */
+.pdf-btn { background: rgba(206, 17, 38, 0.18); color: #ff6b6b; border: 1px solid rgba(206, 17, 38, 0.35);}
+.pdf-btn:hover { background: var(--red); color: #fff; box-shadow: 0 6px 18px rgba(206, 17, 38, 0.35); transform: translateY(-1px);}
+/* EXCEL BUTTON - GREEN THEME */
+.excel-btn { background: rgba(46, 125, 50, 0.18); color: #4caf50; border: 1px solid rgba(46, 125, 50, 0.35);}
+.excel-btn:hover { background: var(--green); color: #fff; box-shadow: 0 6px 18px rgba(46, 125, 50, 0.35); transform: translateY(-1px);}
